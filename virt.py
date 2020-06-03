@@ -2,6 +2,7 @@
 #              and returns information on a person.
 
 #pip install pyaudio
+#pip install playsound
 #pip install SpeechRecognition
 #pip install gTTS
 #pip install wikipedia
