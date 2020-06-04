@@ -28,9 +28,9 @@ def recordAudio():
 
     #Open the Microphone and start Recording
     with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)      #here
+        r.adjust_for_ambient_noise(source)      #here Speech to text code stuck on "say something", S.O.
         print('Please Say Something')
-        audio = r.listen(source, timeout=3)
+        audio = r.listen(source, timeout=5)
 
     #Use Google SpeechRecognition
     data = ''
@@ -60,7 +60,7 @@ def Virtant_peech(text):
 
 # A Function for a wake-word
 def wakeword(text):
-    WAKE_WORDS = ['machine', 'hightower', 'Virtant', 'suprabhat'] # A list of wake words
+    WAKE_WORDS = ['machine', 'computer', 'Virtant', 'suprabhat', 'namaskar'] # A list of wake words
 
     text = text.lower() #Converting the text to all lower case words
 
@@ -140,9 +140,11 @@ while True:
             response = response + ' ' +get_date
 
         # Check to see if user said anything about time
+        hour = 0
+        minute = 0
+        meridian =''
         if ('time' in text):
             now = datetime.datetime.now()
-            meridian =''
             if now.hour >=12:
                 meridian = 'p.m.' # Post meridian
                 hour = now.hour -12
@@ -150,14 +152,15 @@ while True:
                 meridian = 'a.m.' #Annie meridian
                 hour = now.hour
 
-        # Convert minute into a String
-        if now.minute < 10:
-            minute = '0'+str(now.minute)
+            # Convert minute into a String
+            if now.minute < 10:
+                minute = '0'+str(now.minute)
+            else:
+                minute = str(now.minute)
+            response = response + ' ' + 'It is '+str(hour)+ ':'+str(minute)+ ' '+meridian+ ' .'
+
         else:
-            minute = str(now.minute)
-
-        response = response + ' ' + 'It is '+str(hour)+ ':'+minute+ ' '+meridian+ ' .'
-
+            response = response
 
         # Check to see if the user said 'who is'
         if ('who is' in text):
